@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp" >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2" >
+        <TextView
+            android:id="@+id/repo_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Here goes the repo name"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/repo_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:text="Here goes other text"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/repo_starts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="stars"
+        android:layout_weight="1"/>
+
+</LinearLayout>
