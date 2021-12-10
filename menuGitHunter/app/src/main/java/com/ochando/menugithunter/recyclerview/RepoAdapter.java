@@ -17,9 +17,15 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
 
     private static final String TAG = RepoAdapter.class.getSimpleName();
     private int numberItems;
+    private final ListItemClickListener onClickListener;
 
-    public RepoAdapter(int numberItems) {
+    public interface ListItemClickListener {
+        void onListItemClick(int clickedItemIndex);
+    }
+
+    public RepoAdapter(int numberItems, ListItemClickListener clickListener) {
         this.numberItems = numberItems;
+        this.onClickListener = clickListener;
     }
 
     public int getItemCount(){
@@ -48,7 +54,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
         holder.bind(position);
     }
 
-    class RepoViewHolder extends RecyclerView.ViewHolder {
+    class RepoViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
         TextView repoName;
         TextView repoComment;
         TextView repoStars;
@@ -63,6 +69,12 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
 
         void bind(int listIndex){
             repoName.setText(String.valueOf(listIndex));
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            onClickListener.onListItemClick(clickedPosition);
         }
     }
 

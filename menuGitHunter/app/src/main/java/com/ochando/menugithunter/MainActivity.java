@@ -4,29 +4,47 @@ import android.content.Context;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ochando.menugithunter.recyclerview.RepoAdapter;
 import com.ochando.menugithunter.utis.NetworkUtils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RepoAdapter.ListItemClickListener {
 
     EditText searchBox;
     TextView urlDisplay;
     TextView searchResult;
     TextView errorMessageDisplay;
     ProgressBar requestProgress;
+
+    RecyclerView repoList;
+    RepoAdapter adapter;
+
+    Toast clickToast;
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        Log.e("MainActivity","Se ha pulsado sobre " + clickedItemIndex);
+        String toastMessage = "Se ha pulsado sobre " + clickedItemIndex;
+        clickToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+        clickToast.show();
+    }
 
     public class GithudQueryTask extends AsyncTask<URL, Void, String> {
 
@@ -124,10 +142,18 @@ public class MainActivity extends AppCompatActivity {
 
         searchBox = (EditText) findViewById(R.id.search_box);
         urlDisplay = (TextView) findViewById(R.id.ur_display);
-        searchResult = (TextView) findViewById(R.id.github_search_results);
         errorMessageDisplay = (TextView) findViewById(R.id.error_message_display);
+
+        repoList = (RecyclerView) findViewById(R.id.rv_responses);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         requestProgress = (ProgressBar) findViewById(R.id.request_progress);
 
+        repoList.setLayoutManager(layoutManager);
 
+        repoList.setHasFixedSize(true);
+
+        adapter = new RepoAdapter(200, this);
+
+        repoList.setAdapter(adapter);
     }
 }
