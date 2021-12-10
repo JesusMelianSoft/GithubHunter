@@ -65,6 +65,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
             repoName = (TextView)itemView.findViewById(R.id.repo_name);
             repoComment = (TextView) itemView.findViewById(R.id.repo_comment);
             repoStars = (TextView) itemView.findViewById(R.id.repo_starts);
+            itemView.setOnClickListener(this);
         }
 
         void bind(int listIndex){

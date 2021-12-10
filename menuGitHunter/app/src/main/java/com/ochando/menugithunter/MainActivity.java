@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements RepoAdapter.ListI
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Log.e("MainActivity","Se ha pulsado sobre " + clickedItemIndex);
+        if(clickToast!=null){
+            clickToast.cancel();
+        }
         String toastMessage = "Se ha pulsado sobre " + clickedItemIndex;
         clickToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
         clickToast.show();
